@@ -22,6 +22,7 @@ jobs:
       working-directory: ./app/main
       run: |
               pip install -r requirements.txt
+              mkdir ../txtfolder
               python3 unitest.py
       
     - name: Log in to Docker Hub
