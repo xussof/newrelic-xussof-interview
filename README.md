@@ -16,19 +16,20 @@ Create another array on we read the previous array and decide which one has the 
 
 Executing script:
 
-Place a file into app/txtfolder
+
 Execute:
-
 pip install -r requirements.txt
-
 python main.py
+Place a file into app/txtfolder
 
 docker-compose:
-In order to execute using docker compose place a file in app/txtfolder and run the next command:
+In order to execute using docker compose  run the next command:
 docker-compose up
-
 To force rebuild image:
 docker-compose up --build
+place a file in app/txtfolder
+
+
 
 Sources: 
 https://www.nltk.org/

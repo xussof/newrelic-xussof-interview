@@ -5,9 +5,6 @@ from random_word import RandomWords
 
 txtfolder = "../txtfolder"
 
-
-
-
 class TestOutput(unittest.TestCase):
     r = RandomWords()
 
