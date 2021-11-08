@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nr
+  name: nr-common-words
+  namespace: common-words
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: nr
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - env:
+        - name: TZ
+          value: '"Europe/Madrid"'
+        image: xussof/newrelic-common-words:latest
+        command: [ "/bin/bash", "-ce", "python main.py" ]
+        #command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
+        imagePullPolicy: "Always"
+        name: nr-common-words
+        resources: {}
+        volumeMounts:
+        - name: pvo-txtfolder
+          mountPath: /src/txtfolder
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: pvo-txtfolder
+        persistentVolumeClaim:
+          claimName: claimname-txtfolder
+status: {}
