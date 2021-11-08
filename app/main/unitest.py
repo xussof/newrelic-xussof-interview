@@ -1,15 +1,15 @@
 import unittest
 
-from main import test, common_words
+from main import common_words
 from random_word import RandomWords
 
 txtfolder = "../txtfolder"
 
 
-r = RandomWords()
 
-class TestSum(unittest.TestCase):
 
+class TestOutput(unittest.TestCase):
+    r = RandomWords()
 
     #Generating file to read lately with random words
     file = open(txtfolder + "/test.txt", "w") 
