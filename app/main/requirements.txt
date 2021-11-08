@@ -1,4 +1,4 @@
 nltk
 watchdog
-
+pyyaml
 random_word
