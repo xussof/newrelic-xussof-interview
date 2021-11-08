@@ -12,11 +12,11 @@ class TestOutput(unittest.TestCase):
     file = open(txtfolder + "/test.txt", "w") 
     i = 0
     while i < 50:
-        file.write("How are you " + r.get_random_word() + " ")
+        file.write("How are you " + str(r.get_random_word()) + " ")
         if i < 30:
-            file.write("Monolitic scheme supervision " + r.get_random_word() + " ") 
+            file.write("Monolitic scheme supervision " + str(r.get_random_word()) + " ") 
             if i < 20:
-                file.write("Terrified of cats " + r.get_random_word() + " ") 
+                file.write("Terrified of cats " + str(r.get_random_word()) + " ") 
         i += 1
     file.close()
     

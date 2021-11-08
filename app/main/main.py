@@ -7,7 +7,7 @@ from collections import Counter
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
-num_common_words = 4
+num_common_words = 100
 txtfolder = "../txtfolder"
 to_replace = "!", ",", ".", "?"
 
@@ -69,5 +69,5 @@ def test():
     print("Hello there")
 
 if __name__ == "__main__":
-    #observer()
-    common_words()
+    observer()
+    #common_words()
