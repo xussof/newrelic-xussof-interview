@@ -7,18 +7,18 @@ from collections import Counter
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
-num_common_words = 2
+num_common_words = 4
 txtfolder = "../txtfolder"
+to_replace = "!", ",", ".", "?"
 
 def common_words():
     result = []
     for file in os.listdir(txtfolder):
        with open(os.path.join(txtfolder, file), 'r') as f:
         sentence = f.read().rstrip()
-
-    # Since you are not considering periods and treats words with - as phrases
-    sentence = sentence.replace('.', '').replace('-', ' ')
-    #Getting all words and joining them into the array
+        #Let's clean all special caracters
+        for replace in to_replace:
+            sentence = sentence.replace(replace, '').lower()
     for n in range(len(sentence.split(' ')), 2, -1):
         phrases = []
         for token in ngrams(sentence.split(), n):
@@ -69,5 +69,5 @@ def test():
     print("Hello there")
 
 if __name__ == "__main__":
-    observer()
-    #common_words()
+    #observer()
+    common_words()
