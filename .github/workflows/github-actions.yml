@@ -13,12 +13,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
     - name: Testing code
+      working-directory: ./app/main
       run: |
               pip install -r requirements.txt
               python3 unitest.py
-      with:
-        context: app/main
+      
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
