@@ -14,7 +14,25 @@ Create an array placing all groups of 3 words, we exclude symbols such as , ?, !
 
 Create another array on we read the previous array and decide which one has the most common 3 words
 
-Source: 
+Executing script:
+
+Place a file into app/txtfolder
+Execute:
+
+pip install -r requirements.txt
+
+python main.py
+
+docker-compose:
+In order to execute using docker compose place a file in app/txtfolder and run the next command:
+docker-compose up
+
+To force rebuild image:
+docker-compose up --build
+
+Sources: 
 https://www.nltk.org/
 
 https://stackoverflow.com/questions/49589974/how-to-get-most-common-phrases-or-words-in-python-or-r
+https://thepythoncorner.com/posts/2019-01-13-how-to-create-a-watchdog-in-python-to-look-for-filesystem-changes/#step-1-import-some-stuff
+

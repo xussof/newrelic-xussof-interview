@@ -1,32 +1,73 @@
 import os
+import time
+
 from nltk import ngrams
 from collections import Counter
 
-def test2():
+from watchdog.observers import Observer
+from watchdog.events import PatternMatchingEventHandler
+
+num_common_words = 2
+txtfolder = "../txtfolder"
+
+def common_words():
     result = []
-    for file in os.listdir("../txtfolder"):
-       with open(os.path.join("../txtfolder", file), 'r') as f:
+    for file in os.listdir(txtfolder):
+       with open(os.path.join(txtfolder, file), 'r') as f:
         sentence = f.read().rstrip()
 
     # Since you are not considering periods and treats words with - as phrases
     sentence = sentence.replace('.', '').replace('-', ' ')
-
-    for n in range(len(sentence.split(' ')), 1, -1):
+    #Getting all words and joining them into the array
+    for n in range(len(sentence.split(' ')), 2, -1):
         phrases = []
-
         for token in ngrams(sentence.split(), n):
             phrases.append(' '.join(token))
+            
+    n = 0
+    while n < num_common_words:
+        n += 1
+        print("The number ",n," most common phrase is",Counter(phrases).most_common(n)[-1])
 
-        phrase, freq = Counter(phrases).most_common(1)[0]
-        if freq > 1:
-            result.append((phrase, n))
-            sentence = sentence.replace(phrase, '')
+    
 
-    for phrase, freq in result:
-        print('%s: %d' % (phrase, freq))    
+def remove_file(event):
+    os.remove(event.src_path)
+        
+def observer():
+    patterns = ["*"]
+    ignore_patterns = None
+    ignore_directories = False
+    case_sensitive = True
+    my_event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+
+    path = txtfolder
+    go_recursively = True
+    my_observer = Observer()
+    my_observer.schedule(my_event_handler, path, recursive=go_recursively)
     
-if __name__ == '__main__':
+    my_event_handler.on_created = on_created
+    my_event_handler.on_deleted = on_deleted
     
-    # test()
-    test2()
-    # trying()
+    my_observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        my_observer.stop()
+        my_observer.join()
+
+def on_created(event):
+    print(f"New file found named {event.src_path}. Let's read it")
+    common_words()
+    remove_file(event)
+    
+def on_deleted(event):
+    print(f"File {event.src_path} sucsessfully deleted!")
+
+def test():
+    print("Hello there")
+
+if __name__ == "__main__":
+    observer()
+    #common_words()
