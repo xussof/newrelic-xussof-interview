@@ -23,14 +23,14 @@ def common_words():
         phrases = []
         for token in ngrams(sentence.split(), n):
             phrases.append(' '.join(token))
-            
     n = 0
     while n < num_common_words:
         n += 1
         print("The number ",n," most common phrase is",Counter(phrases).most_common(n)[-1])
 
+def common_words_stdin(word):
+    print(word)
     
-
 def remove_file(event):
     os.remove(event.src_path)
         
@@ -65,8 +65,6 @@ def on_created(event):
 def on_deleted(event):
     print(f"File {event.src_path} sucsessfully deleted!")
 
-def test():
-    print("Hello there")
 
 if __name__ == "__main__":
     observer()

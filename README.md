@@ -18,6 +18,7 @@ A tool used to read files placed on app/txtfolder, to retrieve the 100 most used
 
 We use the whatchdog library in order to notify when a new file has been placed, and also to notify when the file has been removed once the code has found the common words.
 
+In order to avoid repositing a text test file, we autogenerate a file while doing test. And we include random words using random_work library into the text so we can easily diferenciate between the correct lines
 
 #### Executing script:
 
