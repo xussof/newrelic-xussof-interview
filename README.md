@@ -23,21 +23,30 @@ In order to avoid repositing a text test file, we autogenerate a file while doin
 #### Executing script:
 
 ##### Execute on command line:
-pip install -r requirements.txt
-python main.py
+```pip install -r requirements.txt```
+
+```python main.py```
+
 Place a file into app/txtfolder
 
 ##### docker-compose:
 In order to execute using docker compose  run the next command:
-docker-compose up
+
+```docker-compose up```
+
 To force rebuild image:
-docker-compose up --build
+
+```docker-compose up --build```
+
 place a file in app/txtfolder
 
 ##### To deploy using helm:
-kubectl create namespace common-words
-cd helm
-helm upgrade common-words-app . -i -n common-words
+
+```kubectl create namespace common-words```
+
+```cd helm```
+
+```helm upgrade common-words-app . -i -n common-words```
 
 #### Work to do in the future:
 - Create a frontend on which I could upload files in order to trigger the observer and return the list of words.
