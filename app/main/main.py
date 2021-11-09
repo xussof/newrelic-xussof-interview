@@ -1,5 +1,6 @@
 import os
 import time
+import sys
 
 from nltk import ngrams
 from collections import Counter
@@ -7,14 +8,15 @@ from collections import Counter
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
+#Used to define the max number the ranking will have
 num_common_words = 100
 txtfolder = "../txtfolder"
+#Used to delete choosen signs before they are placed to the array
 to_replace = "!", ",", ".", "?"
 
-def common_words():
-    result = []
-    for file in os.listdir(txtfolder):
-       with open(os.path.join(txtfolder, file), 'r') as f:
+def common_words(event):
+
+    with open(os.path.join(event), 'r') as f:
         sentence = f.read().rstrip()
         #Let's clean all special caracters
         for replace in to_replace:
@@ -28,9 +30,6 @@ def common_words():
         n += 1
         print("The number ",n," most common phrase is",Counter(phrases).most_common(n)[-1])
 
-def common_words_stdin(word):
-    print(word)
-    
 def remove_file(event):
     os.remove(event.src_path)
         
@@ -59,13 +58,23 @@ def observer():
 
 def on_created(event):
     print(f"New file found named {event.src_path}. Let's read it")
-    common_words()
+    # common_words(event)
+    file_event = event.src_path
+    common_words(file_event)
     remove_file(event)
     
 def on_deleted(event):
     print(f"File {event.src_path} sucsessfully deleted!")
 
-
 if __name__ == "__main__":
-    observer()
-    #common_words()
+    try:
+        n = 1
+        while n < len(sys.argv):
+            event = sys.argv[n]
+            print("The ranking of the file " + event + " is the next: ")
+            common_words(event)
+            n += 1
+    except IndexError:
+        event = 'null'
+        observer()
+    

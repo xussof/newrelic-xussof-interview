@@ -50,8 +50,10 @@ place a file in app/txtfolder
 
 #### Work to do in the future:
 - Create a frontend on which I could upload files in order to trigger the observer and return the list of words.
+- more tests
 - Place some restrictions in order to only allow certain types of files
 - Settup a better deployment chart in order to set Hardware capacities
+- Create a sqlite placed on a shared volume where we could store different data from executions
 
 ### Sources: 
 https://www.nltk.org/
